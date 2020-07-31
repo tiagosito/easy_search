@@ -1,8 +1,8 @@
 name: easy_search
 description: A completely customizable and very beautiful search component, you can customize it or just use the default version which is already very top.
-version: 0.0.1
+version: 1.0.0
 author: Tiago Silva <tiagosito@gmail.com>
-homepage:
+homepage: https://github.com/tiagosito/easy_search
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
