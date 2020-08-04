@@ -1,7 +1,20 @@
-## [1.0.0] - TODO: Add release date.
+## [1.0.1]
+
+Added more usage examples
+- **Offline List With:**
+  - Default Layout
+  - With Custom Layout
+  - Multi Select Items
+
+- **Data from HTTP:**
+  - Default Layout
+  - With Custom Layout
+  - Multi Select Items
+
+
+Bugfixes:
+- Fixed Cancel Values Return
+
+## [1.0.0]
 
 * First release.
-
-## [0.0.1] - TODO: Add release date.
-
-* TODO: Describe initial release.

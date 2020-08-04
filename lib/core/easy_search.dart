@@ -1,6 +1,7 @@
 import 'package:easy_search/model/search_Item.dart';
 import 'package:flutter/material.dart';
 
+import '../easy_search.dart';
 import 'custom_type.dart';
 import 'filter_page_settings.dart';
 import 'search_result_settings.dart';
@@ -34,6 +35,7 @@ class EasySearch<T> extends StatefulWidget {
 class _EasySearchState<T> extends State<EasySearch<T>> {
   SearchItem _controller;
   double _borderWidth;
+  SearchItem _oldController = SearchItem(items: []);
   _EasySearchState({SearchItem controller}) {
     _controller = controller ?? SearchItem(items: []);
     _borderWidth = 0.0;
@@ -120,6 +122,8 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                     } else {
                       _controller.filter = '';
                       //Call SearchScreenList
+
+                      //cloneController();
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -135,9 +139,13 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
 
                       if (result == null) {
                         print('No items were selected');
-                        _controller.clear();
-                        _controller = (result as SearchItem);
+                        // _controller.clear();
+                        // _controller = (result as SearchItem);
+
+                        //_controller = _oldController;
+                        //backCloneControllerValues();
                       } else {
+                        _controller.listItems.updateList();
                         var itemsTemp = (result as SearchItem);
                         if (itemsTemp == null || itemsTemp.listItems == null || itemsTemp.listItems.getListItems.length == 0) {
                           print('No items were selected');
@@ -248,7 +256,6 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
 
   List<Widget> buildTextItem({BuildContext context, SearchItem searchItem}) {
     List<Widget> listWidget = List();
-
     for (var element in searchItem.getSelectedItems.getListItems) {
       listWidget.add(
         InkWell(
@@ -318,5 +325,36 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
       );
     }
     return listWidget;
+  }
+
+  //Clone Controller to return the data when the user cancels
+  void cloneController() {
+    _oldController = SearchItem(items: []);
+    _oldController.filterValue.value = _controller.filterValue.value;
+    _oldController.itemValue = _controller.itemValue;
+    _oldController.listItems = _controller.listItems;
+    _oldController.getSelectedItems;
+  }
+
+  //Back Clone Controller Values
+  void backCloneControllerValues() {
+    var listTemp = List<Item>();
+    _controller.filterValue.value = _oldController.filterValue.value;
+    _controller.itemValue = _oldController.itemValue;
+
+    _oldController.listItems?.getListItems?.forEach(
+      (element) => listTemp.add(
+        Item(element.itemValue.value, element.selectedValue.value),
+      ),
+    );
+
+    _controller.listItems?.listItems?.value?.clear();
+
+    listTemp?.forEach(
+      (element) => _controller.listItems.listItems.value.add(
+        Item(element.itemValue.value, element.selectedValue.value),
+      ),
+    );
+    _controller.getSelectedItems;
   }
 }

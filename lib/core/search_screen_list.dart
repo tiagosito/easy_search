@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_search/model/item.dart';
 import 'package:easy_search/model/search_Item.dart';
-import 'package:easy_search/model/search_item_list.dart';
 import 'package:flutter/material.dart';
 
 import 'curve_type.dart';
@@ -50,11 +49,20 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
   void initState() {
     _textEditingController.addListener(configureSearchTimer);
 
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
 
-    _animationSelectAll = CurvedAnimation(parent: _animationController, curve: Interval(0.0, 1.0, curve: Curves.linear));
+    _animationSelectAll = CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(0.0, 1.0, curve: Curves.linear),
+    );
 
-    _animationUnselectAll = CurvedAnimation(parent: _animationController, curve: Interval(0.7, 1.0, curve: Curves.linear));
+    _animationUnselectAll = CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(0.7, 1.0, curve: Curves.linear),
+    );
 
     _animationController.reverse();
     super.initState();
@@ -234,7 +242,9 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
                             child: MaterialButton(
                               onPressed: () {
                                 widget.controller.filter = null;
-                                WidgetsBinding.instance.addPostFrameCallback((_) => _textEditingController.clear());
+                                WidgetsBinding.instance.addPostFrameCallback(
+                                  (_) => _textEditingController.clear(),
+                                );
                                 FocusScope.of(context).unfocus();
                               },
                               color: widget.filterPageSettings.filterField.suffixIconBackground
@@ -492,7 +502,7 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
                 _showMoreActions();
                 print("Unselect All has been pressed");
                 if (widget.controller.getListItems.length > 0) {
-                  widget.controller.listItems.selectOrUselecteAll(all: false);
+                  widget.controller.listItems.selectOrUselecteAll(all: false, multipleSelect: widget.multipleSelect);
                   //widget.controller.getListItems.forEach((element) => element.selected = false);
                   //widget.controller.listItems.updateList();
                 }
@@ -553,7 +563,7 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
                 _showMoreActions();
                 print("Select All has been pressed");
                 if (widget.controller.getListItems.length > 0) {
-                  widget.controller.listItems.selectOrUselecteAll(all: true);
+                  widget.controller.listItems.selectOrUselecteAll(all: true, multipleSelect: widget.multipleSelect);
                   // widget.controller.getListItems.forEach((element) => element.selected = true);
                   // widget.controller.listItems.updateList();
                 }
@@ -852,11 +862,16 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
     //Update Item
     item.selected = !item.selected;
 
+    if (widget.multipleSelect) {
+      //Start with false
+      item.selectionHasBeenModified = item.selectionHasBeenModified ? false : true;
+    }
+
     widget.controller.item = item;
 
     if (!widget.multipleSelect) {
       //Unselect all items
-      widget.controller.listItems.selectOrUselecteAll(all: false);
+      widget.controller.listItems.selectOrUselecteAll(all: false, multipleSelect: widget.multipleSelect);
 
       //Select just one item
       widget.controller.listItems.justOneSelected(item);
@@ -874,9 +889,8 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
         : ValueNotifier<Item>(null);
 
     controller.listItems?.getListItems?.forEach(
-      (element) => _oldController.listItems.setListItem(
-        Item(element.itemValue.value, element.selectedValue.value),
-      ),
+      (element) => _oldController.listItems?.listItems?.value?.add(element),
+      // _oldController.listItems.setListItem(Item(element.itemValue.value, element.selectedValue.value),),
     );
   }
 
@@ -889,22 +903,25 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
     if (_enableSearch && (_searchTimer?.isActive ?? false)) {
       _searchTimer.cancel();
     }
-    _searchTimer = Timer(Duration(milliseconds: _waitingTimeToSearch), () {
-      if (_enableSearch && widget.controller.filter != null && widget.controller.filter.length > 0) {
-        try {
-          if (_lastSearchValue.compareTo(widget.controller.filter) != 0) {
-            _tryToRunTheSearch();
-            _lastSearchValue = widget.controller.filter ?? '';
-          } else {
-            print('Filter is equal last search');
+    _searchTimer = Timer(
+      Duration(milliseconds: _waitingTimeToSearch),
+      () {
+        if (_enableSearch && widget.controller.filter != null && widget.controller.filter.length > 0) {
+          try {
+            if (_lastSearchValue.compareTo(widget.controller.filter) != 0) {
+              _tryToRunTheSearch();
+              _lastSearchValue = widget.controller.filter ?? '';
+            } else {
+              print('Filter is equal last search');
+            }
+          } catch (e) {
+            print('Warning: $e');
           }
-        } catch (e) {
-          print('Warning: $e');
+        } else {
+          executeOfflineSearch();
         }
-      } else {
-        executeOfflineSearch();
-      }
-    });
+      },
+    );
   }
 
   //Try to run the search
@@ -947,6 +964,32 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>> with TickerPr
   void _pop({BuildContext context, bool cancel = false}) {
     _enableSearch = false;
 
-    Navigator.pop(context, cancel ? _oldController : widget.controller);
+    //Reset to before values when cancel is touch
+    widget.controller.getListItems.forEach(
+      (element) {
+        if (element.selectionHasBeenModified && cancel) {
+          element.selected = !element.selected;
+        }
+
+        element.selectionHasBeenModified = false;
+      },
+    );
+
+    if (widget.controller.getSelectedItems != null &&
+        widget.controller.getSelectedItems.getListItems.length < 1 &&
+        _oldController.getListItems.length > 0) {
+      List<T> oldItemList = List();
+      _oldController.getSelectedItems.getListItems.forEach(
+        (element) => oldItemList.add(element.item),
+      );
+
+      if (oldItemList != null && oldItemList.length > 0) {
+        widget.controller.listItems.fillSelectedOldItemsFromCancel(items: oldItemList);
+      }
+    }
+
+    widget.controller.listItems.updateList();
+
+    Navigator.pop(context, cancel ? null : widget.controller);
   }
 }

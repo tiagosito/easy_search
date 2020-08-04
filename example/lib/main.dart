@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:easy_search/easy_search.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,33 +39,193 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Simple Offline
+            buildInformation(information: 'Simple Offline List'),
             EasySearch(
-              multipleSelect: true,
-              searchResultSettings: SearchResultSettings(padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0)),
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
               controller: SearchItem(
                 items: [
                   Item(ModelExample(name: 'Tiago', age: 36), false),
-                  Item(ModelExample(name: 'Mel', age: 3), true),
+                  Item(ModelExample(name: 'Mel', age: 3), false),
                   Item(ModelExample(name: 'Monique', age: 30), false),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-
-            //Dio request
+            SizedBox(
+              height: 50,
+            ),
+            buildInformation(information: 'Simple Offline List\nWith Custom Layout'),
+            EasySearch(
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
+              controller: SearchItem(
+                items: [
+                  Item(ModelExample(name: 'Tiago', age: 36), false),
+                  Item(ModelExample(name: 'Mel', age: 3), false),
+                  Item(ModelExample(name: 'Monique', age: 30), false),
+                ],
+              ),
+              customItemBuilder: (BuildContext context, ModelExample item, bool isSelected) {
+                return Container(
+                  decoration: !isSelected
+                      ? null
+                      : BoxDecoration(
+                          border: Border.all(color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(7),
+                          color: Colors.white,
+                        ),
+                  child: ListTile(
+                    selected: isSelected,
+                    title: Text(item.name),
+                    subtitle: Text(
+                      item.age.toString(),
+                    ),
+                    leading: Icon(Icons.people),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            buildInformation(information: 'Simple Offline List\nWith Custom Layout\nMulti Select Items'),
+            EasySearch(
+              multipleSelect: true,
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
+              controller: SearchItem(
+                items: [
+                  Item(ModelExample(name: 'Tiago', age: 36), false),
+                  Item(ModelExample(name: 'Mel', age: 3), false),
+                  Item(ModelExample(name: 'Monique', age: 30), false),
+                ],
+              ),
+              customItemBuilder: (BuildContext context, ModelExample item, bool isSelected) {
+                return Container(
+                  decoration: !isSelected
+                      ? null
+                      : BoxDecoration(
+                          border: Border.all(color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(7),
+                          color: Colors.white,
+                        ),
+                  child: ListTile(
+                    selected: isSelected,
+                    title: Text(item.name),
+                    subtitle: Text(item.age.toString()),
+                    leading: Icon(Icons.people),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            buildInformation(information: 'With data from HTTP Request'),
             EasySearch(
               onSearch: (text) {
                 print('Filter Query: $text');
                 return getData(name: text);
               },
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            buildInformation(information: 'With data from HTTP Request\nWith Custom Layout'),
+            EasySearch(
+              onSearch: (text) {
+                print('Filter Query: $text');
+                return getData(name: text);
+              },
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
+              customItemBuilder: (BuildContext context, ModelExample item, bool isSelected) {
+                return Container(
+                  decoration: !isSelected
+                      ? null
+                      : BoxDecoration(
+                          border: Border.all(color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(7),
+                          color: Colors.white,
+                        ),
+                  child: ListTile(
+                    selected: isSelected,
+                    title: Text(item.name),
+                    subtitle: Text(item.age.toString()),
+                    leading: Icon(Icons.people),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            buildInformation(information: 'With data from HTTP Request\nWith Custom Layout\nMulti Select Items'),
+            EasySearch(
               multipleSelect: true,
-              searchResultSettings: SearchResultSettings(padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0)),
+              onSearch: (text) {
+                print('Filter Query: $text');
+                return getData(name: text);
+              },
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
+              customItemBuilder: (BuildContext context, ModelExample item, bool isSelected) {
+                return Container(
+                  decoration: !isSelected
+                      ? null
+                      : BoxDecoration(
+                          border: Border.all(color: Theme.of(context).primaryColor),
+                          borderRadius: BorderRadius.circular(7),
+                          color: Colors.white,
+                        ),
+                  child: ListTile(
+                    selected: isSelected,
+                    title: Text(item.name),
+                    subtitle: Text(item.age.toString()),
+                    leading: Icon(Icons.people),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 50,
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildInformation({String information}) {
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, bottom: 0),
+          child: Center(
+            child: Text(
+              information,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -105,7 +265,16 @@ class ModelExample {
   }
 
   @override
-  operator ==(o) => o is ModelExample || this.name.toLowerCase().contains(o.toString().toLowerCase());
+  operator ==(object) => this.name.toLowerCase().contains(object.toLowerCase()) || this.age.toString().contains(object);
+
+  // @override
+  // operator ==(o) =>
+  //     o is ModelExample && this.name.toLowerCase().contains(o.name.toLowerCase()); // && this.hashCode == o.hashCode;
+
+  // @override
+  // operator ==(o) =>
+  //     o is ModelExample &&
+  //     (this.name.toLowerCase().contains(o.name.toLowerCase()) || this.age.toString().contains(o.age.toString()));
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;

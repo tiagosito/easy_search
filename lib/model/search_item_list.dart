@@ -40,7 +40,27 @@ class SearchItemList<T> extends ValueNotifier {
     }
 
     ValueNotifier<List<Item>> listTemp = ValueNotifier<List<Item>>([]);
-    items.forEach((element) => listTemp.value.add(fillSelected ? element : Item(element, false)));
+    items.forEach(
+      (element) => listTemp.value.add(
+        fillSelected ? element : Item(element, false),
+      ),
+    );
+    this.listItems = listTemp;
+
+    updateList();
+  }
+
+  fillSelectedOldItemsFromCancel({List<T> items}) {
+    if (items == null) {
+      return throw ('Search Items List cannot be null');
+    }
+
+    ValueNotifier<List<Item>> listTemp = ValueNotifier<List<Item>>([]);
+    items.forEach(
+      (element) => listTemp.value.add(
+        Item(element, true),
+      ),
+    );
     this.listItems = listTemp;
 
     updateList();
@@ -56,8 +76,46 @@ class SearchItemList<T> extends ValueNotifier {
   ///
   ///[all == false] all items are unselected
   ///
-  selectOrUselecteAll({bool all = true}) {
-    getListItems.forEach((element) => element.selected = all);
+  selectOrUselecteAll({bool all = true, bool multipleSelect = false}) {
+    getListItems.forEach(
+      (element) {
+        if (multipleSelect) {
+          //Select All == True
+          if (all) {
+            if ((element.selectionHasBeenModified && element.selected) ||
+                (!element.selectionHasBeenModified && !element.selected)) {
+              element.selectionHasBeenModified = true;
+            } else if ((!element.selectionHasBeenModified && element.selected) ||
+                (element.selectionHasBeenModified && !element.selected)) {
+              element.selectionHasBeenModified = false;
+            }
+
+            element.selected = true;
+          } else if (!all) {
+            //Select All == false
+            if ((element.selectionHasBeenModified && element.selected) ||
+                (!element.selectionHasBeenModified && !element.selected)) {
+              element.selectionHasBeenModified = false;
+            } else if ((!element.selectionHasBeenModified && element.selected) ||
+                (element.selectionHasBeenModified && !element.selected)) {
+              element.selectionHasBeenModified = true;
+            }
+
+            element.selected = false;
+          }
+
+          // if (!element.selectionHasBeenModified && element.selected != all) {
+          //   element.selectionHasBeenModified = false;
+          //   element.selected = all;
+          // }
+          // //Start with false
+          // if (!element.selected && !element.selectionHasBeenModified) {
+          //   element.selectionHasBeenModified = true;
+          // }
+          //element.selected = all;
+        }
+      },
+    );
     updateList();
   }
 
