@@ -58,7 +58,7 @@ dependencies:
 ### Offline list:
 
 #### Default Layout:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/Simple%20OfflineList.gif" width="49%" alt="Simple Offline List" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/simple_offline_list.gif" width="49%" alt="Simple Offline List" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
@@ -78,7 +78,7 @@ EasySearch(
 ```
 
 ##### Custom Layout:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/Simple%20Offline%20List%20With%20Custom%20Layout.gif" width="49%" alt="Simple Offline List With Custom Layout" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/simple_offline_list_with_custom_layout.gif" width="49%" alt="Simple Offline List With Custom Layout" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
@@ -117,7 +117,7 @@ EasySearch(
 ```
 
 ##### Multi Select Items:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/Simple%20Offline%20List%20With%20Custom%20Layout%20Multi%20Select%20Items.gif" width="49%" alt="Simple Offline List With Custom Layout And Multi Selection Items" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/simple_offline_list_with_custom_layout_multi_select_items.gif" width="49%" alt="Simple Offline List With Custom Layout And Multi Selection Items" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
@@ -155,7 +155,7 @@ EasySearch(
 ### HTTP Request:
 
 ##### Default Layout - Http:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/From%20HTTP%20Request.gif" width="49%" alt="From HTTP Request" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/from_http_request.gif" width="49%" alt="From HTTP Request" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
@@ -186,7 +186,7 @@ Future<List<ModelExample>> getData({name}) async {
 }
 ```
 ##### Custom Layout - Http:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/From%20HTTP%20Request%20With%20Custom%20Layout.gif" width="49%" alt="From HTTP Request With Custom Layout" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/from_http_request_with_custom_layout.gif" width="49%" alt="From HTTP Request With Custom Layout" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
@@ -235,7 +235,7 @@ Future<List<ModelExample>> getData({name}) async {
 ```
 
 ##### Multi Select Items - Http:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/From%20HTTP%20Request%20With%20Custom%20Layout%20Multi%20Select%20Items.gif" width="49%" alt="From HTTP Request With Custom Layout And Multi Select Items" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/from_http_request_with_custom_layout_multi_select_items.gif" width="49%" alt="From HTTP Request With Custom Layout And Multi Select Items" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
