@@ -1,3 +1,7 @@
+## [1.0.1 - 1.0.1+1]
+
+Fix gif url example 
+
 ## [1.0.1]
 
 Added more usage examples
