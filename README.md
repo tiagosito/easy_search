@@ -58,7 +58,7 @@ dependencies:
 ### Offline list:
 
 #### Default Layout:
-<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/simple_offline_list.gif" width="49%" alt="Simple Offline List" />
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/simple_offline_list.gif?raw=true" width="49%" alt="Simple Offline List" />
 
 ```dart
 import 'package:easy_search/easy_search.dart';
