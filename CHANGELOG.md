@@ -1,3 +1,7 @@
+## [1.0.1 - 1.0.1+3]
+
+Add Licence
+
 ## [1.0.1 - 1.0.1+2]
 
 Update README and dartfmt
