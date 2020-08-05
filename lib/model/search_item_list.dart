@@ -24,7 +24,8 @@ class SearchItemList<T> extends ValueNotifier {
       List<Item> list = [item];
       this.listItems = ValueNotifier<List<Item>>(list);
     } else {
-      var itemsTemp = this.listItems.value.where((element) => element == item).toList();
+      var itemsTemp =
+          this.listItems.value.where((element) => element == item).toList();
       if (itemsTemp != null && itemsTemp.length > 0) {
         this.listItems.value.remove(item);
       }
@@ -67,7 +68,8 @@ class SearchItemList<T> extends ValueNotifier {
   }
 
   justOneSelected(Item item) {
-    getListItems.forEach((element) => element != item ? element.selected = false : element.selected = true);
+    getListItems.forEach((element) =>
+        element != item ? element.selected = false : element.selected = true);
     updateList();
   }
 
@@ -85,7 +87,8 @@ class SearchItemList<T> extends ValueNotifier {
             if ((element.selectionHasBeenModified && element.selected) ||
                 (!element.selectionHasBeenModified && !element.selected)) {
               element.selectionHasBeenModified = true;
-            } else if ((!element.selectionHasBeenModified && element.selected) ||
+            } else if ((!element.selectionHasBeenModified &&
+                    element.selected) ||
                 (element.selectionHasBeenModified && !element.selected)) {
               element.selectionHasBeenModified = false;
             }
@@ -96,7 +99,8 @@ class SearchItemList<T> extends ValueNotifier {
             if ((element.selectionHasBeenModified && element.selected) ||
                 (!element.selectionHasBeenModified && !element.selected)) {
               element.selectionHasBeenModified = false;
-            } else if ((!element.selectionHasBeenModified && element.selected) ||
+            } else if ((!element.selectionHasBeenModified &&
+                    element.selected) ||
                 (element.selectionHasBeenModified && !element.selected)) {
               element.selectionHasBeenModified = true;
             }
@@ -140,7 +144,9 @@ class SearchItemList<T> extends ValueNotifier {
     if (getListItems == null) {
       return 0;
     }
-    return getListItems.length == 0 ? 0 : getListItems.where((element) => element.selected).toList().length;
+    return getListItems.length == 0
+        ? 0
+        : getListItems.where((element) => element.selected).toList().length;
   }
 
   clear() {

@@ -1,3 +1,7 @@
+## [1.0.1 - 1.0.1+2]
+
+Update README and dartfmt
+
 ## [1.0.1 - 1.0.1+1]
 
 Fix gif url example 

@@ -13,10 +13,13 @@ class Item<T> {
     this.visibleValue.value = visible ?? true;
   }
 
-  ValueNotifier<bool> selectionHasBeenModifiedValue = ValueNotifier<bool>(false);
-  bool get selectionHasBeenModified => selectionHasBeenModifiedValue?.value ?? false;
+  ValueNotifier<bool> selectionHasBeenModifiedValue =
+      ValueNotifier<bool>(false);
+  bool get selectionHasBeenModified =>
+      selectionHasBeenModifiedValue?.value ?? false;
   set selectionHasBeenModified(bool selectionHasBeenModified) {
-    this.selectionHasBeenModifiedValue.value = selectionHasBeenModified ?? false;
+    this.selectionHasBeenModifiedValue.value =
+        selectionHasBeenModified ?? false;
   }
 
   ValueNotifier<T> itemValue;

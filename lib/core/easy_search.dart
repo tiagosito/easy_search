@@ -16,8 +16,12 @@ class EasySearch<T> extends StatefulWidget {
     this.controller,
     this.onSearch,
     this.customItemBuilder,
-  })  : this.searchResultSettings = searchResultSettings != null ? searchResultSettings : const SearchResultSettings(),
-        this.filterPageSettings = filterPageSettings != null ? filterPageSettings : const FilterPageSettings(),
+  })  : this.searchResultSettings = searchResultSettings != null
+            ? searchResultSettings
+            : const SearchResultSettings(),
+        this.filterPageSettings = filterPageSettings != null
+            ? filterPageSettings
+            : const FilterPageSettings(),
         this.multipleSelect = multipleSelect ?? false,
         super(key: key);
 
@@ -29,7 +33,8 @@ class EasySearch<T> extends StatefulWidget {
   final CustomItemBuilder<T> customItemBuilder;
 
   @override
-  _EasySearchState<T> createState() => _EasySearchState<T>(controller: controller);
+  _EasySearchState<T> createState() =>
+      _EasySearchState<T>(controller: controller);
 }
 
 class _EasySearchState<T> extends State<EasySearch<T>> {
@@ -72,7 +77,8 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
         fontSize: widget.searchResultSettings.label.fontSize,
         fontWeight: widget.searchResultSettings.label.fontWeight,
         letterSpacing: widget.searchResultSettings.label.letterSpacing,
-        color: widget.searchResultSettings.label.color.withOpacity(widget.searchResultSettings.label.colorOpacity),
+        color: widget.searchResultSettings.label.color
+            .withOpacity(widget.searchResultSettings.label.colorOpacity),
       ),
     );
     var textLabelHide = Text(
@@ -97,10 +103,18 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
               padding: const EdgeInsets.only(top: 10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: widget.searchResultSettings.styleSearchPage.borderColor, width: _borderWidth),
-                  color: widget.searchResultSettings.styleSearchPage.backGroundColor
-                      .withOpacity(widget.searchResultSettings.styleSearchPage.backgroundColorOpacity),
-                  borderRadius: BorderRadius.circular(widget.searchResultSettings.styleSearchPage.borderRadiusCircular),
+                  border: Border.all(
+                      color: widget
+                          .searchResultSettings.styleSearchPage.borderColor,
+                      width: _borderWidth),
+                  color: widget
+                      .searchResultSettings.styleSearchPage.backGroundColor
+                      .withOpacity(widget.searchResultSettings.styleSearchPage
+                          .backgroundColorOpacity),
+                  borderRadius: BorderRadius.circular(widget
+                      .searchResultSettings
+                      .styleSearchPage
+                      .borderRadiusCircular),
                 ),
                 child: InkWell(
                   onTap: () async {
@@ -147,15 +161,19 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                       } else {
                         _controller.listItems.updateList();
                         var itemsTemp = (result as SearchItem);
-                        if (itemsTemp == null || itemsTemp.listItems == null || itemsTemp.listItems.getListItems.length == 0) {
+                        if (itemsTemp == null ||
+                            itemsTemp.listItems == null ||
+                            itemsTemp.listItems.getListItems.length == 0) {
                           print('No items were selected');
                           _controller.clear();
                           // _controller = (result as SearchItem);
                         } else {
                           //Check items selected == true;
 
-                          var selectedList =
-                              itemsTemp.getSelectedItems.getListItems.where((element) => element.selected).toList();
+                          var selectedList = itemsTemp
+                              .getSelectedItems.getListItems
+                              .where((element) => element.selected)
+                              .toList();
                           // if (itemsTemp.getSelectedItems != null) {
                           // }
 
@@ -163,9 +181,12 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
 
                           // _controller.listItems.fillItemsList(items: selectedList, fillSelected: true);
 
-                          if (_controller != null && _controller.getSelectedItems.getListItems.length > 0) {
+                          if (_controller != null &&
+                              _controller.getSelectedItems.getListItems.length >
+                                  0) {
                             for (var itemSelected in selectedList) {
-                              print('Item: ${itemSelected.item}  -  Selected: ${itemSelected.selected}');
+                              print(
+                                  'Item: ${itemSelected.item}  -  Selected: ${itemSelected.selected}');
                             }
                           }
                         }
@@ -175,11 +196,13 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: widget.searchResultSettings.styleSearchPage.paddingLeftSearchIcon,
+                        width: widget.searchResultSettings.styleSearchPage
+                            .paddingLeftSearchIcon,
                       ),
                       widget.searchResultSettings.prefixIcon,
                       SizedBox(
-                        width: widget.searchResultSettings.styleSearchPage.paddingRightSearchIcon,
+                        width: widget.searchResultSettings.styleSearchPage
+                            .paddingRightSearchIcon,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
@@ -189,27 +212,56 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                             return Container(
                               width: listItemsWidthInternal,
                               child: this._controller != null &&
-                                      this._controller.getSelectedItems != null &&
-                                      this._controller.getSelectedItems.getListItems != null &&
-                                      this._controller.getSelectedItems.getListItems.length > 0
+                                      this._controller.getSelectedItems !=
+                                          null &&
+                                      this
+                                              ._controller
+                                              .getSelectedItems
+                                              .getListItems !=
+                                          null &&
+                                      this
+                                              ._controller
+                                              .getSelectedItems
+                                              .getListItems
+                                              .length >
+                                          0
                                   ? Wrap(
-                                      spacing: widget.searchResultSettings.styleSearchPage.spacingBetweenItemsValue,
+                                      spacing: widget
+                                          .searchResultSettings
+                                          .styleSearchPage
+                                          .spacingBetweenItemsValue,
                                       children: buildTextItem(
                                         context: context,
                                         searchItem: _controller,
                                       ),
                                     )
                                   : Text(
-                                      widget.searchResultSettings.labelHint.value != null &&
-                                              widget.searchResultSettings.labelHint.value.replaceAll(' ', '').length > 0
-                                          ? widget.searchResultSettings.labelHint.value
+                                      widget.searchResultSettings.labelHint
+                                                      .value !=
+                                                  null &&
+                                              widget.searchResultSettings
+                                                      .labelHint.value
+                                                      .replaceAll(' ', '')
+                                                      .length >
+                                                  0
+                                          ? widget.searchResultSettings
+                                              .labelHint.value
                                           : 'search...',
                                       style: TextStyle(
-                                        fontSize: widget.searchResultSettings.labelHint.fontSize,
-                                        fontWeight: widget.searchResultSettings.labelHint.fontWeight,
-                                        letterSpacing: widget.searchResultSettings.labelHint.letterSpacing,
-                                        color: widget.searchResultSettings.labelHint.color
-                                            .withOpacity(widget.searchResultSettings.labelHint.colorOpacity),
+                                        fontSize: widget.searchResultSettings
+                                            .labelHint.fontSize,
+                                        fontWeight: widget.searchResultSettings
+                                            .labelHint.fontWeight,
+                                        letterSpacing: widget
+                                            .searchResultSettings
+                                            .labelHint
+                                            .letterSpacing,
+                                        color: widget.searchResultSettings
+                                            .labelHint.color
+                                            .withOpacity(widget
+                                                .searchResultSettings
+                                                .labelHint
+                                                .colorOpacity),
                                       ),
                                     ),
                             );
@@ -221,7 +273,8 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                 ),
               ),
             ),
-            if (widget.searchResultSettings.label.value != null && widget.searchResultSettings.label.value.isNotEmpty)
+            if (widget.searchResultSettings.label.value != null &&
+                widget.searchResultSettings.label.value.isNotEmpty)
               Positioned(
                 left: 20,
                 top: 9.5,
@@ -237,7 +290,8 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                   ),
                 ),
               ),
-            if (widget.searchResultSettings.label.value != null && widget.searchResultSettings.label.value.isNotEmpty)
+            if (widget.searchResultSettings.label.value != null &&
+                widget.searchResultSettings.label.value.isNotEmpty)
               Positioned(
                 left: 25,
                 child: ClipRRect(
@@ -259,9 +313,13 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
     for (var element in searchItem.getSelectedItems.getListItems) {
       listWidget.add(
         InkWell(
-          highlightColor: widget.searchResultSettings.buildItemResult.highlightColor,
-          splashColor: widget.searchResultSettings.buildItemResult.splashColor ?? Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(widget.searchResultSettings.buildItemResult.circularBackgroundBorderRadius),
+          highlightColor:
+              widget.searchResultSettings.buildItemResult.highlightColor,
+          splashColor:
+              widget.searchResultSettings.buildItemResult.splashColor ??
+                  Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(widget.searchResultSettings
+              .buildItemResult.circularBackgroundBorderRadius),
           onTap: () {
             print('The item - ${element.item.toString()} has been removed');
             element.selected = false;
@@ -269,48 +327,70 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
             //_controller.selectedItems.removeItem(element);
           },
           child: Padding(
-            padding: widget.searchResultSettings.buildItemResult.backgroundPadding,
+            padding:
+                widget.searchResultSettings.buildItemResult.backgroundPadding,
             child: Container(
               decoration: BoxDecoration(
-                color: widget.searchResultSettings.buildItemResult.backgroundColor
-                    .withOpacity(widget.searchResultSettings.buildItemResult.backgroundOpacity),
-                borderRadius: BorderRadius.circular(widget.searchResultSettings.buildItemResult.circularBorderRadiusItem),
+                color: widget
+                    .searchResultSettings.buildItemResult.backgroundColor
+                    .withOpacity(widget.searchResultSettings.buildItemResult
+                        .backgroundOpacity),
+                borderRadius: BorderRadius.circular(widget.searchResultSettings
+                    .buildItemResult.circularBorderRadiusItem),
               ),
               child: Padding(
-                padding: widget.searchResultSettings.buildItemResult.itemPadding,
+                padding:
+                    widget.searchResultSettings.buildItemResult.itemPadding,
                 child: Wrap(
-                  spacing: widget.searchResultSettings.buildItemResult.spacingBetweenItem,
+                  spacing: widget
+                      .searchResultSettings.buildItemResult.spacingBetweenItem,
                   children: [
                     Text(
                       element.item.toString(),
                       style: TextStyle(
-                        fontSize: widget.searchResultSettings.buildItemResult.itemValue.fontSize,
-                        fontWeight: widget.searchResultSettings.buildItemResult.itemValue.fontWeight,
-                        letterSpacing: widget.searchResultSettings.buildItemResult.itemValue.letterSpacing,
-                        color: widget.searchResultSettings.buildItemResult.itemValue.color
-                            .withOpacity(widget.searchResultSettings.buildItemResult.itemValue.colorOpacity),
+                        fontSize: widget.searchResultSettings.buildItemResult
+                            .itemValue.fontSize,
+                        fontWeight: widget.searchResultSettings.buildItemResult
+                            .itemValue.fontWeight,
+                        letterSpacing: widget.searchResultSettings
+                            .buildItemResult.itemValue.letterSpacing,
+                        color: widget.searchResultSettings.buildItemResult
+                            .itemValue.color
+                            .withOpacity(widget.searchResultSettings
+                                .buildItemResult.itemValue.colorOpacity),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
+                      padding: const EdgeInsets.only(
+                          left: 8.0, top: 0.0, right: 8.0, bottom: 0.0),
                       child: Container(
                         width: 20,
                         height: 20,
                         decoration: BoxDecoration(
-                          color: widget.searchResultSettings.buildItemResult.removeItemIconBackgroundColor
-                              .withOpacity(widget.searchResultSettings.buildItemResult.removeItemIconBackgroundOpacity),
+                          color: widget.searchResultSettings.buildItemResult
+                              .removeItemIconBackgroundColor
+                              .withOpacity(widget
+                                  .searchResultSettings
+                                  .buildItemResult
+                                  .removeItemIconBackgroundOpacity),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
-                          widget.searchResultSettings.buildItemResult.removeItemIcon,
-                          color: widget.searchResultSettings.buildItemResult.removeItemIconBackgroundColor !=
-                                  widget.searchResultSettings.buildItemResult.removeItemIconColor
-                              ? widget.searchResultSettings.buildItemResult.removeItemIconColor
-                                  .withOpacity(widget.searchResultSettings.buildItemResult.removeItemIconOpacity)
-                              : Theme.of(context).primaryColor != widget.searchResultSettings.buildItemResult.backgroundColor
-                                  ? Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(widget.searchResultSettings.buildItemResult.removeItemIconOpacity)
+                          widget.searchResultSettings.buildItemResult
+                              .removeItemIcon,
+                          color: widget.searchResultSettings.buildItemResult
+                                      .removeItemIconBackgroundColor !=
+                                  widget.searchResultSettings.buildItemResult
+                                      .removeItemIconColor
+                              ? widget.searchResultSettings.buildItemResult
+                                  .removeItemIconColor
+                                  .withOpacity(widget.searchResultSettings
+                                      .buildItemResult.removeItemIconOpacity)
+                              : Theme.of(context).primaryColor !=
+                                      widget.searchResultSettings
+                                          .buildItemResult.backgroundColor
+                                  ? Theme.of(context).primaryColor.withOpacity(
+                                      widget.searchResultSettings.buildItemResult.removeItemIconOpacity)
                                   : Colors.red,
                           size: 20,
                         ),

@@ -9,7 +9,9 @@ class ListFilter {
   const ListFilter({
     LabelSettings valueNotFoundAlert,
     Color circularProgress,
-  })  : this.valueNotFoundAlert =
-            valueNotFoundAlert != null ? valueNotFoundAlert : const LabelSettings.filterPageNotFoundMessageAlert(),
-        this.circularProgress = circularProgress != null ? circularProgress : null;
+  })  : this.valueNotFoundAlert = valueNotFoundAlert != null
+            ? valueNotFoundAlert
+            : const LabelSettings.filterPageNotFoundMessageAlert(),
+        this.circularProgress =
+            circularProgress != null ? circularProgress : null;
 }

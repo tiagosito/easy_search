@@ -27,13 +27,25 @@ class FilterPageSettings {
     FilterActionButton selectedButton,
     FilterActionButton selectedAll,
     FilterActionButton unselectedAll,
-  })  : this.title = title != null ? title : const LabelSettings.filterPageTitle(),
+  })  : this.title =
+            title != null ? title : const LabelSettings.filterPageTitle(),
         this.showBackButon = showBackButton ?? false,
-        this.padding = padding != null ? padding : const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0, bottom: 8.0),
-        this.filterField = filterField != null ? filterField : const FilterField(),
+        this.padding = padding != null
+            ? padding
+            : const EdgeInsets.only(
+                left: 8.0, top: 8.0, right: 8.0, bottom: 8.0),
+        this.filterField =
+            filterField != null ? filterField : const FilterField(),
         this.listFilter = listFilter != null ? listFilter : const ListFilter(),
-        this.buildItemFilter = buildItemFilter != null ? buildItemFilter : const BuildItemFilter(),
-        this.selectedButton = selectedButton != null ? selectedButton : const FilterActionButton(),
-        this.selectedAll = selectedAll != null ? selectedAll : const FilterActionButton.selectedAll(),
-        this.unselectedAll = unselectedAll != null ? unselectedAll : const FilterActionButton.unselectedAll();
+        this.buildItemFilter =
+            buildItemFilter != null ? buildItemFilter : const BuildItemFilter(),
+        this.selectedButton = selectedButton != null
+            ? selectedButton
+            : const FilterActionButton(),
+        this.selectedAll = selectedAll != null
+            ? selectedAll
+            : const FilterActionButton.selectedAll(),
+        this.unselectedAll = unselectedAll != null
+            ? unselectedAll
+            : const FilterActionButton.unselectedAll();
 }

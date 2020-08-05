@@ -21,8 +21,13 @@ class SearchResultSettings {
     BuildItemResult buildItemResult,
   })  : this.padding = padding != null ? padding : const EdgeInsets.all(0.0),
         this.label = label != null ? label : const LabelSettings.searchLabel(),
-        this.labelHint = labelHint != null ? labelHint : const LabelSettings.searchHint(),
-        this.prefixIcon = prefixIcon != null ? prefixIcon : const Icon(Icons.search, color: Colors.grey, size: 22),
-        this.styleSearchPage = styleSearchPage != null ? styleSearchPage : const StyleSearchPage(),
-        this.buildItemResult = buildItemResult != null ? buildItemResult : const BuildItemResult();
+        this.labelHint =
+            labelHint != null ? labelHint : const LabelSettings.searchHint(),
+        this.prefixIcon = prefixIcon != null
+            ? prefixIcon
+            : const Icon(Icons.search, color: Colors.grey, size: 22),
+        this.styleSearchPage =
+            styleSearchPage != null ? styleSearchPage : const StyleSearchPage(),
+        this.buildItemResult =
+            buildItemResult != null ? buildItemResult : const BuildItemResult();
 }

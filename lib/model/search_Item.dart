@@ -54,7 +54,8 @@ class SearchItem<T> {
 
     selectedItems = SearchItemList();
 
-    var selectedList = getListItems.where((element) => element.selected).toList();
+    var selectedList =
+        getListItems.where((element) => element.selected).toList();
     if (selectedList != null && selectedList.length > 0) {
       selectedList.forEach(
         (element) {

@@ -30,20 +30,37 @@ class FilterField {
     LabelSettings styleSearchValue,
     LabelSettings labelCancelFilterSearch,
     DividerFilterAndList dividerFilterAndList,
-  })  : this.prefixIcon = prefixIcon != null ? prefixIcon : const Icon(Icons.search, color: Colors.grey, size: 22),
-        this.suffixIcon = suffixIcon != null ? suffixIcon : const Icon(Icons.clear, color: Colors.white, size: 15),
+  })  : this.prefixIcon = prefixIcon != null
+            ? prefixIcon
+            : const Icon(Icons.search, color: Colors.grey, size: 22),
+        this.suffixIcon = suffixIcon != null
+            ? suffixIcon
+            : const Icon(Icons.clear, color: Colors.white, size: 15),
         this.cursor = cursor != null ? cursor : null,
-        this.suffixIconBackground = suffixIconBackground != null ? suffixIconBackground : Colors.grey,
+        this.suffixIconBackground =
+            suffixIconBackground != null ? suffixIconBackground : Colors.grey,
         this.suffixIconBackgroundOpacity =
-            suffixIconBackgroundOpacity != null && suffixIconBackgroundOpacity >= 0.0 && suffixIconBackgroundOpacity <= 1.0
+            suffixIconBackgroundOpacity != null &&
+                    suffixIconBackgroundOpacity >= 0.0 &&
+                    suffixIconBackgroundOpacity <= 1.0
                 ? suffixIconBackgroundOpacity
                 : 1.0,
-        this.sufixCircularPadding = sufixCircularPadding != null ? sufixCircularPadding : const EdgeInsets.all(7.0),
-        this.sufixIconCircularPadding = sufixIconCircularPadding != null ? sufixIconCircularPadding : const EdgeInsets.all(0),
+        this.sufixCircularPadding = sufixCircularPadding != null
+            ? sufixCircularPadding
+            : const EdgeInsets.all(7.0),
+        this.sufixIconCircularPadding = sufixIconCircularPadding != null
+            ? sufixIconCircularPadding
+            : const EdgeInsets.all(0),
         this.showHint = showHint ?? true,
-        this.labelHint = labelHint != null ? labelHint : const LabelSettings.filterHint(),
-        this.styleSearchValue = styleSearchValue != null ? styleSearchValue : const LabelSettings.styleFilterPageTextValue(),
-        this.labelCancelFilterSearch =
-            labelCancelFilterSearch != null ? labelCancelFilterSearch : const LabelSettings.filterPageCancel(),
-        this.dividerFilterAndList = dividerFilterAndList != null ? dividerFilterAndList : const DividerFilterAndList();
+        this.labelHint =
+            labelHint != null ? labelHint : const LabelSettings.filterHint(),
+        this.styleSearchValue = styleSearchValue != null
+            ? styleSearchValue
+            : const LabelSettings.styleFilterPageTextValue(),
+        this.labelCancelFilterSearch = labelCancelFilterSearch != null
+            ? labelCancelFilterSearch
+            : const LabelSettings.filterPageCancel(),
+        this.dividerFilterAndList = dividerFilterAndList != null
+            ? dividerFilterAndList
+            : const DividerFilterAndList();
 }
