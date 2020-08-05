@@ -28,7 +28,7 @@ and we can focus more on writing amazing applications.
    - [Multi Select Items](#multi-select-items)
  - [How to use From Server (HTTP Request)](#http-request)
    - [Default Layout](#default-layout---http)
-   - [Default Layout](#custom-layout---http)
+   - [Custom Layout](#custom-layout---http)
    - [Multi Select Items](#multi-select-items---http)
  - [Important About Models](#important-about-models)
  - [Roadmap](#roadmap)
