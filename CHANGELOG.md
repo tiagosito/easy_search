@@ -1,3 +1,8 @@
+## [1.0.2]
+
+- Removed some default label values
+- Add Trailing widget to the EasySearch widget
+
 ## [1.0.1 - 1.0.1+3]
 
 Add License
