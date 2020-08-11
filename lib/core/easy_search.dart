@@ -15,6 +15,7 @@ class EasySearch<T> extends StatefulWidget {
     bool multipleSelect,
     this.controller,
     this.onSearch,
+    this.trailing,
     this.customItemBuilder,
   })  : this.searchResultSettings = searchResultSettings != null
             ? searchResultSettings
@@ -31,6 +32,7 @@ class EasySearch<T> extends StatefulWidget {
   final SearchItem controller;
   final OnSearch<T> onSearch;
   final CustomItemBuilder<T> customItemBuilder;
+  final Widget trailing;
 
   @override
   _EasySearchState<T> createState() =>
@@ -59,37 +61,39 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
     }
   }
 
+  Widget _label(LabelSettings settings, [String defaultValue = ""]) {
+    return settings != null
+        ? Text(
+            settings.value ?? defaultValue,
+            style: TextStyle(
+              fontSize: settings.fontSize,
+              fontWeight: settings.fontWeight,
+              letterSpacing: settings.letterSpacing,
+              color: settings.color.withOpacity(settings.colorOpacity),
+            ),
+          )
+        : null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var discountSpace = (widget.searchResultSettings.prefixIcon.size ?? 24.0) +
-        widget.searchResultSettings.padding.left +
-        widget.searchResultSettings.padding.right +
-        widget.searchResultSettings.styleSearchPage.paddingLeftSearchIcon +
-        widget.searchResultSettings.styleSearchPage.paddingRightSearchIcon +
-        (_borderWidth * 2);
+    Text textLabel;
+    Text textLabelHide;
 
-    var listItemsWidthInternal = size.width - discountSpace;
+    if (widget.searchResultSettings?.label != null) {
+      textLabel =  _label(widget.searchResultSettings.label);
 
-    var textLabel = Text(
-      widget.searchResultSettings.label.value,
-      style: TextStyle(
-        fontSize: widget.searchResultSettings.label.fontSize,
-        fontWeight: widget.searchResultSettings.label.fontWeight,
-        letterSpacing: widget.searchResultSettings.label.letterSpacing,
-        color: widget.searchResultSettings.label.color
-            .withOpacity(widget.searchResultSettings.label.colorOpacity),
-      ),
-    );
-    var textLabelHide = Text(
-      widget.searchResultSettings.label.value,
-      style: TextStyle(
-        fontSize: widget.searchResultSettings.label.fontSize,
-        fontWeight: widget.searchResultSettings.label.fontWeight,
-        letterSpacing: widget.searchResultSettings.label.letterSpacing,
-        color: Colors.transparent,
-      ),
-    );
+      textLabelHide = Text(
+        widget.searchResultSettings.label.value,
+        style: TextStyle(
+          fontSize: widget.searchResultSettings.label.fontSize,
+          fontWeight: widget.searchResultSettings.label.fontWeight,
+          letterSpacing: widget.searchResultSettings.label.letterSpacing,
+          color: Colors.transparent,
+        ),
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.only(
           left: widget.searchResultSettings.padding.left,
@@ -135,9 +139,6 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                       Scaffold.of(context).showSnackBar(snackBar);
                     } else {
                       _controller.filter = '';
-                      //Call SearchScreenList
-
-                      //cloneController();
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -151,14 +152,7 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                         ),
                       );
 
-                      if (result == null) {
-                        print('No items were selected');
-                        // _controller.clear();
-                        // _controller = (result as SearchItem);
-
-                        //_controller = _oldController;
-                        //backCloneControllerValues();
-                      } else {
+                      if (result != null) {
                         _controller.listItems.updateList();
                         var itemsTemp = (result as SearchItem);
                         if (itemsTemp == null ||
@@ -166,7 +160,6 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                             itemsTemp.listItems.getListItems.length == 0) {
                           print('No items were selected');
                           _controller.clear();
-                          // _controller = (result as SearchItem);
                         } else {
                           //Check items selected == true;
 
@@ -174,13 +167,6 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                               .getSelectedItems.getListItems
                               .where((element) => element.selected)
                               .toList();
-                          // if (itemsTemp.getSelectedItems != null) {
-                          // }
-
-                          // var selectedList = itemsTemp.listItems.getListItems.where((element) => element.selected).toList();
-
-                          // _controller.listItems.fillItemsList(items: selectedList, fillSelected: true);
-
                           if (_controller != null &&
                               _controller.getSelectedItems.getListItems.length >
                                   0) {
@@ -204,27 +190,13 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                         width: widget.searchResultSettings.styleSearchPage
                             .paddingRightSearchIcon,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: ValueListenableBuilder(
-                          valueListenable: _controller?.listItems,
-                          builder: (_, __, ___) {
-                            return Container(
-                              width: listItemsWidthInternal,
-                              child: this._controller != null &&
-                                      this._controller.getSelectedItems !=
-                                          null &&
-                                      this
-                                              ._controller
-                                              .getSelectedItems
-                                              .getListItems !=
-                                          null &&
-                                      this
-                                              ._controller
-                                              .getSelectedItems
-                                              .getListItems
-                                              .length >
-                                          0
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          child: ValueListenableBuilder(
+                            valueListenable: _controller?.listItems,
+                            builder: (_, __, ___) {
+                              return this._controller?.hasSelection == true
                                   ? Wrap(
                                       spacing: widget
                                           .searchResultSettings
@@ -235,46 +207,22 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                                         searchItem: _controller,
                                       ),
                                     )
-                                  : Text(
-                                      widget.searchResultSettings.labelHint
-                                                      .value !=
-                                                  null &&
-                                              widget.searchResultSettings
-                                                      .labelHint.value
-                                                      .replaceAll(' ', '')
-                                                      .length >
-                                                  0
-                                          ? widget.searchResultSettings
-                                              .labelHint.value
-                                          : 'search...',
-                                      style: TextStyle(
-                                        fontSize: widget.searchResultSettings
-                                            .labelHint.fontSize,
-                                        fontWeight: widget.searchResultSettings
-                                            .labelHint.fontWeight,
-                                        letterSpacing: widget
-                                            .searchResultSettings
-                                            .labelHint
-                                            .letterSpacing,
-                                        color: widget.searchResultSettings
-                                            .labelHint.color
-                                            .withOpacity(widget
-                                                .searchResultSettings
-                                                .labelHint
-                                                .colorOpacity),
-                                      ),
-                                    ),
-                            );
-                          },
+                                  : _label(
+                                          widget.searchResultSettings.labelHint,
+                                          "search...") ??
+                                      Container();
+                            },
+                          ),
                         ),
                       ),
+                      if (widget.trailing != null) widget.trailing
                     ],
                   ),
                 ),
               ),
             ),
-            if (widget.searchResultSettings.label.value != null &&
-                widget.searchResultSettings.label.value.isNotEmpty)
+            if (widget.searchResultSettings.label?.value != null &&
+                widget.searchResultSettings.label?.value?.isNotEmpty == true)
               Positioned(
                 left: 20,
                 top: 9.5,
@@ -290,8 +238,8 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                   ),
                 ),
               ),
-            if (widget.searchResultSettings.label.value != null &&
-                widget.searchResultSettings.label.value.isNotEmpty)
+            if (widget.searchResultSettings.label?.value != null &&
+                widget.searchResultSettings.label?.value?.isNotEmpty == true)
               Positioned(
                 left: 25,
                 child: ClipRRect(

@@ -4,9 +4,7 @@ import 'item.dart';
 
 class SearchItemList<T> extends ValueNotifier {
   SearchItemList({List<T> items}) : super(items) {
-    if (items == null || items.length == 0) {
-      return;
-    } else {
+    if (items != null && items.length > 0) {
       items.forEach((element) {
         setListItem((element as Item));
       });

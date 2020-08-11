@@ -13,19 +13,13 @@ class SearchResultSettings {
   final BuildItemResult buildItemResult;
 
   const SearchResultSettings({
-    LabelSettings label,
-    LabelSettings labelHint,
-    Icon prefixIcon,
+    this.label,
+    this.labelHint,
+    this.prefixIcon = const Icon(Icons.search, color: Colors.grey, size: 22),
     EdgeInsets padding,
     StyleSearchPage styleSearchPage,
     BuildItemResult buildItemResult,
   })  : this.padding = padding != null ? padding : const EdgeInsets.all(0.0),
-        this.label = label != null ? label : const LabelSettings.searchLabel(),
-        this.labelHint =
-            labelHint != null ? labelHint : const LabelSettings.searchHint(),
-        this.prefixIcon = prefixIcon != null
-            ? prefixIcon
-            : const Icon(Icons.search, color: Colors.grey, size: 22),
         this.styleSearchPage =
             styleSearchPage != null ? styleSearchPage : const StyleSearchPage(),
         this.buildItemResult =

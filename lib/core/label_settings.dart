@@ -22,8 +22,8 @@ class LabelSettings {
     double letterSpacing,
     FontWeight fontWeight,
     TextAlign textAlign,
-  })  : this.value = value != null ? value : 'value...',
-        this.color = color != null ? color : Colors.black,
+  })  : this.value = value ?? "",
+        this.color = color ?? Colors.black,
         this.fontSize = fontSize != null && fontSize > 0 ? fontSize : 14.0,
         this.colorOpacity =
             colorOpacity != null && colorOpacity >= 0.0 && colorOpacity <= 1.0
@@ -42,8 +42,8 @@ class LabelSettings {
     double letterSpacing,
     FontWeight fontWeight,
     TextAlign textAlign,
-  })  : this.value = value != null ? value : 'My Label',
-        this.color = color != null ? color : Colors.black,
+  })  : this.value = value ?? "",
+        this.color = color ?? Colors.black,
         this.fontSize = fontSize != null && fontSize > 0 ? fontSize : 13.0,
         this.colorOpacity =
             colorOpacity != null && colorOpacity >= 0.0 && colorOpacity <= 1.0
@@ -62,8 +62,8 @@ class LabelSettings {
     double letterSpacing,
     FontWeight fontWeight,
     TextAlign textAlign,
-  })  : this.value = value != null ? value : 'hint',
-        this.color = color != null ? color : Colors.black,
+  })  : this.value = value ?? '',
+        this.color = color ?? Colors.black,
         this.fontSize = fontSize != null && fontSize > 0 ? fontSize : 14.0,
         this.colorOpacity =
             colorOpacity != null && colorOpacity >= 0.0 && colorOpacity <= 1.0
@@ -82,8 +82,8 @@ class LabelSettings {
     double letterSpacing,
     FontWeight fontWeight,
     TextAlign textAlign,
-  })  : this.value = value != null ? value : 'hint...',
-        this.color = color != null ? color : Colors.black,
+  })  : this.value = value ?? '',
+        this.color = color ?? Colors.black,
         this.fontSize = fontSize != null && fontSize > 0 ? fontSize : 14.0,
         this.colorOpacity =
             colorOpacity != null && colorOpacity >= 0.0 && colorOpacity <= 1.0

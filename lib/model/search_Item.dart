@@ -5,13 +5,7 @@ import 'search_item_list.dart';
 
 class SearchItem<T> {
   SearchItem({List<Item> items}) {
-    if (items == null || items.length == 0) {
-      return;
-    } else {
-      items.forEach((element) {
-        listItems.setListItem(element);
-      });
-    }
+    items?.forEach(listItems.setListItem);
   }
 
   ValueNotifier<String> filterValue = ValueNotifier<String>('');
@@ -46,6 +40,11 @@ class SearchItem<T> {
     });
   }
 
+  bool get hasSelection =>
+      getSelectedItems != null &&
+      selectedItems.getListItems != null &&
+      selectedItems.getListItems.length > 0;
+
   SearchItemList<T> selectedItems = SearchItemList();
   SearchItemList<T> get getSelectedItems {
     if (getListItems == null) {
@@ -57,11 +56,7 @@ class SearchItem<T> {
     var selectedList =
         getListItems.where((element) => element.selected).toList();
     if (selectedList != null && selectedList.length > 0) {
-      selectedList.forEach(
-        (element) {
-          selectedItems.listItems.value.add(element);
-        },
-      );
+      selectedItems.listItems.value.addAll(selectedList);
     }
 
     return selectedItems;
@@ -80,7 +75,6 @@ class SearchItem<T> {
   }
 
   clear() {
-    print('Clear controller');
     filter = '';
     countSelectedValue?.value = 0;
     itemValue?.value = null;
