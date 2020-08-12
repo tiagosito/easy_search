@@ -1,3 +1,7 @@
+## [1.0.3]
+
+- Added option to perform a search on search page is displayed.
+
 ## [1.0.2]
 
 - Removed some default label values

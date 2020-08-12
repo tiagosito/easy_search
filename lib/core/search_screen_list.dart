@@ -67,6 +67,10 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>>
     );
 
     _animationController.reverse();
+
+    if (widget.filterPageSettings.searchOnShow == true)
+      _tryToRunTheSearch();
+    
     super.initState();
   }
 

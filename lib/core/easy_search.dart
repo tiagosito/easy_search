@@ -33,7 +33,7 @@ class EasySearch<T> extends StatefulWidget {
   final OnSearch<T> onSearch;
   final CustomItemBuilder<T> customItemBuilder;
   final Widget trailing;
-
+  
   @override
   _EasySearchState<T> createState() =>
       _EasySearchState<T>(controller: controller);
