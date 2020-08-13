@@ -1,3 +1,7 @@
+## [1.0.4+1]
+
+- Fix bug.
+
 ## [1.0.4]
 
 - Added option to perform a search with an empty value.

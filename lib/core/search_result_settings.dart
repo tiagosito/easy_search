@@ -7,7 +7,8 @@ import 'style_search_page.dart';
 class SearchResultSettings {
   final LabelSettings label;
   final LabelSettings labelHint;
-  final Icon prefixIcon;
+  final Widget prefix;
+  final Widget sufix;
   final EdgeInsets padding;
   final StyleSearchPage styleSearchPage;
   final BuildItemResult buildItemResult;
@@ -15,7 +16,8 @@ class SearchResultSettings {
   const SearchResultSettings({
     this.label,
     this.labelHint,
-    this.prefixIcon = const Icon(Icons.search, color: Colors.grey, size: 22),
+    this.prefix,
+    this.sufix,
     EdgeInsets padding,
     StyleSearchPage styleSearchPage,
     BuildItemResult buildItemResult,

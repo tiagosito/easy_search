@@ -20,20 +20,20 @@ class FilterPageSettings {
   final bool searchOnEmpty;
   final int waitingTimeToSearch;
 
-  const FilterPageSettings({
-    LabelSettings title,
-    bool showBackButton,
-    EdgeInsets padding,
-    FilterField filterField,
-    ListFilter listFilter,
-    BuildItemFilter buildItemFilter,
-    FilterActionButton selectedButton,
-    FilterActionButton selectedAll,
-    FilterActionButton unselectedAll,
-    this.searchOnShow,
-    this.searchOnEmpty,
-    this.waitingTimeToSearch
-  })  : this.title =
+  const FilterPageSettings(
+      {LabelSettings title,
+      bool showBackButton,
+      EdgeInsets padding,
+      FilterField filterField,
+      ListFilter listFilter,
+      BuildItemFilter buildItemFilter,
+      FilterActionButton selectedButton,
+      FilterActionButton selectedAll,
+      FilterActionButton unselectedAll,
+      this.searchOnShow,
+      this.searchOnEmpty,
+      this.waitingTimeToSearch})
+      : this.title =
             title != null ? title : const LabelSettings.filterPageTitle(),
         this.showBackButon = showBackButton ?? false,
         this.padding = padding != null

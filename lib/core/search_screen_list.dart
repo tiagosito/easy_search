@@ -71,9 +71,16 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>>
     _waitingTimeToSearch =
         widget.filterPageSettings?.waitingTimeToSearch ?? 1500;
 
-    if (widget.filterPageSettings.searchOnShow == true) _tryToRunTheSearch();
+    //After page load, to try run the search
+    WidgetsBinding.instance.addPostFrameCallback((_) => afeterPageLoad());
 
     super.initState();
+  }
+
+  //After page load, to try run the search
+  void afeterPageLoad() {
+    if (widget.filterPageSettings.searchOnShow != null &&
+        widget.filterPageSettings.searchOnShow == true) _tryToRunTheSearch();
   }
 
   @override

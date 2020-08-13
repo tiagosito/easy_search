@@ -15,7 +15,6 @@ class EasySearch<T> extends StatefulWidget {
     bool multipleSelect,
     this.controller,
     this.onSearch,
-    this.trailing,
     this.customItemBuilder,
   })  : this.searchResultSettings = searchResultSettings != null
             ? searchResultSettings
@@ -26,14 +25,66 @@ class EasySearch<T> extends StatefulWidget {
         this.multipleSelect = multipleSelect ?? false,
         super(key: key);
 
+  ///
+  /// Parameter name: [searchResultSettings]
+  ///
+  /// Configure the display of the results list
+  ///
   final SearchResultSettings searchResultSettings;
+
+  ///
+  /// Parameter name: [filterPageSettings]
+  ///
+  /// Configure the display of the filter list
+  ///
   final FilterPageSettings filterPageSettings;
+
+  ///
+  /// Parameter name: [multipleSelect]
+  ///
+  /// When this property is
+  /// ```dart
+  /// multipleSelect == true,
+  /// ```
+  /// it enables multiple selection in the filter list
+  ///
+  /// Default value: false
+  ///
   final bool multipleSelect;
+
+  ///
+  /// Parameter name: [controller]
+  ///
+  /// It is the controller of the component,
+  ///
+  /// in general, we have it, the filter list control,
+  ///
+  /// results list, quantity of selected items
+  ///
   final SearchItem controller;
+
+  ///
+  /// Parameter name: [onSearch]
+  ///
+  /// The method that will be invoked,
+  ///
+  /// when making a call to a web server
+  ///
   final OnSearch<T> onSearch;
+
+  ///
+  /// Parameter name: [customItemBuilder]
+  ///
+  /// This is the parameter responsible for injecting your customized code,
+  ///
+  /// into the filter items, in short,
+  ///
+  /// here you can customize
+  ///
+  /// how your filter list will present the items
+  ///
   final CustomItemBuilder<T> customItemBuilder;
-  final Widget trailing;
-  
+
   @override
   _EasySearchState<T> createState() =>
       _EasySearchState<T>(controller: controller);
@@ -81,7 +132,7 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
     Text textLabelHide;
 
     if (widget.searchResultSettings?.label != null) {
-      textLabel =  _label(widget.searchResultSettings.label);
+      textLabel = _label(widget.searchResultSettings.label);
 
       textLabelHide = Text(
         widget.searchResultSettings.label.value,
@@ -119,6 +170,9 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                       .searchResultSettings
                       .styleSearchPage
                       .borderRadiusCircular),
+                ),
+                constraints: BoxConstraints(
+                  minHeight: 33.0,
                 ),
                 child: InkWell(
                   onTap: () async {
@@ -185,7 +239,9 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                         width: widget.searchResultSettings.styleSearchPage
                             .paddingLeftSearchIcon,
                       ),
-                      widget.searchResultSettings.prefixIcon,
+                      widget.searchResultSettings.prefix ??
+                          const Icon(Icons.search,
+                              color: Colors.grey, size: 22),
                       SizedBox(
                         width: widget.searchResultSettings.styleSearchPage
                             .paddingRightSearchIcon,
@@ -215,7 +271,7 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                           ),
                         ),
                       ),
-                      if (widget.trailing != null) widget.trailing
+                      widget.searchResultSettings.sufix ?? Container(),
                     ],
                   ),
                 ),
