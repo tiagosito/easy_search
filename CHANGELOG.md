@@ -1,3 +1,7 @@
+## [1.0.4]
+
+- Added option to perform a search with an empty value.
+
 ## [1.0.3]
 
 - Added option to perform a search on search page is displayed.

@@ -17,6 +17,8 @@ class FilterPageSettings {
   final FilterActionButton selectedAll;
   final FilterActionButton unselectedAll;
   final bool searchOnShow;
+  final bool searchOnEmpty;
+  final int waitingTimeToSearch;
 
   const FilterPageSettings({
     LabelSettings title,
@@ -28,7 +30,9 @@ class FilterPageSettings {
     FilterActionButton selectedButton,
     FilterActionButton selectedAll,
     FilterActionButton unselectedAll,
-    this.searchOnShow
+    this.searchOnShow,
+    this.searchOnEmpty,
+    this.waitingTimeToSearch
   })  : this.title =
             title != null ? title : const LabelSettings.filterPageTitle(),
         this.showBackButon = showBackButton ?? false,

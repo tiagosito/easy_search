@@ -68,9 +68,11 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>>
 
     _animationController.reverse();
 
-    if (widget.filterPageSettings.searchOnShow == true)
-      _tryToRunTheSearch();
-    
+    _waitingTimeToSearch =
+        widget.filterPageSettings?.waitingTimeToSearch ?? 1500;
+
+    if (widget.filterPageSettings.searchOnShow == true) _tryToRunTheSearch();
+
     super.initState();
   }
 
@@ -1048,31 +1050,36 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>>
     _longPressSelectItems = false;
     _showMoreActions();
 
-    print('Setting the search timer');
-    if (_enableSearch && (_searchTimer?.isActive ?? false)) {
-      _searchTimer.cancel();
+    if (_waitingTimeToSearch > 0) {
+      print('Setting the search timer');
+      if (_enableSearch && (_searchTimer?.isActive ?? false)) {
+        _searchTimer.cancel();
+      }
+      _searchTimer =
+          Timer(Duration(milliseconds: _waitingTimeToSearch), _doSearch);
+    } else {
+      _doSearch();
     }
-    _searchTimer = Timer(
-      Duration(milliseconds: _waitingTimeToSearch),
-      () {
-        if (_enableSearch &&
-            widget.controller.filter != null &&
-            widget.controller.filter.length > 0) {
-          try {
-            if (_lastSearchValue.compareTo(widget.controller.filter) != 0) {
-              _tryToRunTheSearch();
-              _lastSearchValue = widget.controller.filter ?? '';
-            } else {
-              print('Filter is equal last search');
-            }
-          } catch (e) {
-            print('Warning: $e');
-          }
+  }
+
+  void _doSearch() {
+    if (_enableSearch &&
+        widget.controller.filter != null &&
+        (widget.controller.filter.length > 0 ||
+            (widget.filterPageSettings?.searchOnEmpty ?? false))) {
+      try {
+        if (_lastSearchValue.compareTo(widget.controller.filter) != 0) {
+          _tryToRunTheSearch();
+          _lastSearchValue = widget.controller.filter ?? '';
         } else {
-          executeOfflineSearch();
+          print('Filter is equal last search');
         }
-      },
-    );
+      } catch (e) {
+        print('Warning: $e');
+      }
+    } else {
+      executeOfflineSearch();
+    }
   }
 
   //Try to run the search
