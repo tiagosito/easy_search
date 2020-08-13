@@ -1,6 +1,6 @@
-## [1.0.4+1]
+# [1.0.4 - 1.0.4+1]
 
-- Fixed some bugs and started documentation for EasySearch class properties.
+Fixed some bugs and started documentation for EasySearch class properties.
 
 ## [1.0.4]
 
@@ -30,6 +30,7 @@ Fix gif url example.
 ## [1.0.1]
 
 Added more usage examples
+
 - **Offline List With:**
   - Default Layout.
   - With Custom Layout.
@@ -42,8 +43,9 @@ Added:
   - Multi Select Items.
 
 Bugfixes:
+
 - Fixed Cancel Values Return.
 
 ## [1.0.0]
 
-* First release.
+First release.
