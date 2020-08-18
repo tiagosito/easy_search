@@ -1,3 +1,7 @@
+# [1.0.5]
+
+Added OnChange method, called when item list is changed.
+
 # [1.0.4 - 1.0.4+1]
 
 Fixed some bugs and started documentation for EasySearch class properties.

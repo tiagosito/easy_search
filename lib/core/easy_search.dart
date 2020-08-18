@@ -15,6 +15,7 @@ class EasySearch<T> extends StatefulWidget {
     bool multipleSelect,
     this.controller,
     this.onSearch,
+    this.onChange,
     this.customItemBuilder,
   })  : this.searchResultSettings = searchResultSettings != null
             ? searchResultSettings
@@ -71,6 +72,15 @@ class EasySearch<T> extends StatefulWidget {
   /// when making a call to a web server
   ///
   final OnSearch<T> onSearch;
+
+  ///
+  /// Parameter name: [onChange]
+  ///
+  /// The method that will be invoked,
+  ///
+  /// when item list is changed
+  ///
+  final OnChange<T> onChange;
 
   ///
   /// Parameter name: [customItemBuilder]
@@ -221,6 +231,7 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                               .getSelectedItems.getListItems
                               .where((element) => element.selected)
                               .toList();
+
                           if (_controller != null &&
                               _controller.getSelectedItems.getListItems.length >
                                   0) {
@@ -231,6 +242,9 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
                           }
                         }
                       }
+
+                      //Call OnChange Method
+                      callOnChange();
                     }
                   },
                   child: Row(
@@ -312,6 +326,27 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
     );
   }
 
+  //Call OnChange Method
+  void callOnChange() {
+    List<T> onChangeValues;
+    if (_controller != null &&
+        _controller.getSelectedItems != null &&
+        _controller.getSelectedItems.getListItems.length > 0) {
+      var selectedList = _controller.getSelectedItems.getListItems
+          .where((element) => element.selected)
+          .toList();
+
+      onChangeValues = [];
+      selectedList.forEach(
+        (element) {
+          onChangeValues.add(element.item);
+        },
+      );
+    }
+
+    widget.onChange(onChangeValues);
+  }
+
   List<Widget> buildTextItem({BuildContext context, SearchItem searchItem}) {
     List<Widget> listWidget = List();
     for (var element in searchItem.getSelectedItems.getListItems) {
@@ -329,6 +364,9 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
             element.selected = false;
             _controller.listItems.updateList();
             //_controller.selectedItems.removeItem(element);
+
+            //Call OnChange Method
+            callOnChange();
           },
           child: Padding(
             padding:

@@ -36,7 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,6 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
                 label: LabelSettings.searchLabel(value: 'People'),
               ),
+              onChange: (value) {
+                print(value.length);
+              },
               controller: SearchItem(
                 items: [
                   Item(ModelExample(name: 'Tiago', age: 36), false),
@@ -102,6 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
                 label: LabelSettings.searchLabel(value: 'People'),
               ),
+              onChange: (value) {
+                print(value.length);
+              },
               controller: SearchItem(
                 items: [
                   Item(ModelExample(name: 'Tiago', age: 36), false),
@@ -179,6 +184,9 @@ class _MyHomePageState extends State<MyHomePage> {
             buildInformation(information: 'With data from HTTP Request\nWith Custom Layout\nMulti Select Items'),
             EasySearch(
               multipleSelect: true,
+              onChange: (value) {
+                print(value?.length);
+              },
               onSearch: (text) {
                 print('Filter Query: $text');
                 return getData(name: text);
