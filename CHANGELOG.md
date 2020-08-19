@@ -1,8 +1,15 @@
-# [1.0.5]
+# [1.0.6]
+
+Added Option [startWithValue]:
+you allow the [controller] to start with list of items filled
+and can also make use of [OnSearch] to make
+requests to the web server
+
+## [1.0.5]
 
 Added OnChange method, called when item list is changed.
 
-# [1.0.4 - 1.0.4+1]
+## [1.0.4 - 1.0.4+1]
 
 Fixed some bugs and started documentation for EasySearch class properties.
 

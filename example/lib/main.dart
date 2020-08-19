@@ -135,6 +135,32 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 50,
             ),
+            buildInformation(information: 'Start controller with value\nand With data from HTTP Request'),
+            EasySearch(
+              onSearch: (text) {
+                print('Filter Query: $text');
+                return getData(name: text);
+              },
+              startWithValue: true,
+              searchResultSettings: SearchResultSettings(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+                label: LabelSettings.searchLabel(value: 'People'),
+              ),
+              filterPageSettings: FilterPageSettings(
+                searchOnShow: false,
+              ),
+              controller: SearchItem(
+                items: [
+                  Item(ModelExample(name: 'Tiago', age: 37), true),
+                  Item(ModelExample(name: 'Mel', age: 3), false),
+                  Item(ModelExample(name: 'Monique', age: 30), false),
+                  Item(ModelExample(name: 'Timothy', age: 0), false),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
             buildInformation(information: 'With data from HTTP Request'),
             EasySearch(
               onSearch: (text) {
@@ -145,7 +171,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
                 label: LabelSettings.searchLabel(value: 'People'),
               ),
-              filterPageSettings: FilterPageSettings(searchOnShow: true),
             ),
             SizedBox(
               height: 50,
