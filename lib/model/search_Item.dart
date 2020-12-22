@@ -74,6 +74,11 @@ class SearchItem<T> {
     }
   }
 
+  changingValues(List<Item> items) {
+    clear();
+    items?.forEach(listItems.setListItem);
+  }
+
   clear() {
     filter = '';
     countSelectedValue?.value = 0;

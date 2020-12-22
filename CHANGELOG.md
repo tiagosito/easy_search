@@ -1,4 +1,10 @@
-# [1.0.6]
+# [1.0.6+1]
+
+Added method [changingValues]:
+now you can programmatically change
+the item list using the [changingValues] method
+
+## [1.0.6]
 
 Added Option [startWithValue]:
 you allow the [controller] to start with list of items filled

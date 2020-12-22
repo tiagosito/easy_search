@@ -1,6 +1,6 @@
 name: easy_search
 description: A highly customizable search component to accelerate your development.
-version: 1.0.6
+version: 1.0.6+1
 homepage: https://github.com/tiagosito/easy_search
 
 environment:

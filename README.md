@@ -185,6 +185,7 @@ Future<List<ModelExample>> getData({name}) async {
   return result;
 }
 ```
+
 ##### Custom Layout - Http:
 <img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/from_http_request_with_custom_layout.gif?raw=true" width="30%" alt="From HTTP Request With Custom Layout" />
 
@@ -232,6 +233,48 @@ Future<List<ModelExample>> getData({name}) async {
   var result = ModelExample.fromJsonList(response.data);
   return result;
 }
+```
+
+##### Programmatically changing the Item List:
+<img src="https://github.com/tiagosito/easy_search/blob/master/doc/assets/programmatically_change_item_list.gif?raw=true" width="30%" alt="Programmatically changing the Item List" />
+
+```dart
+import 'package:easy_search/easy_search.dart';
+
+EasySearch(
+  onSearch: (text) {
+    print('Filter Query: $text');
+    return getData(name: text);
+  },
+  startWithValue: true,
+  searchResultSettings: SearchResultSettings(
+    padding: EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+    label: LabelSettings.searchLabel(value: 'People'),
+  ),
+  filterPageSettings: FilterPageSettings(
+    searchOnShow: false,
+  ),
+  controller: controllerStartWithValue,
+),
+Center(
+  child: RaisedButton(
+    onPressed: () {
+      //1ª Create the new listToFill
+      List<Item<ModelExample>> listToFill = [
+        Item(ModelExample(name: 'ABC 123', age: 3), true),
+        Item(ModelExample(name: 'ACB 132', age: 13), false),
+        Item(ModelExample(name: 'BAC 213', age: 23), false),
+        Item(ModelExample(name: 'BCA 231', age: 33), false),
+        Item(ModelExample(name: 'CAB 312', age: 43), false),
+        Item(ModelExample(name: 'CBA 321', age: 53), false),
+      ];
+
+      //2ª Update controller with new listToFill
+      controllerStartWithValue.updateValues(listToFill);
+    },
+    child: Text('Changing list'),
+  ),
+),
 ```
 
 ##### Multi Select Items - Http:
