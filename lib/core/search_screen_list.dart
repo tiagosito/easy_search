@@ -1149,7 +1149,7 @@ class _SearchScreenListState<T> extends State<SearchScreenList<T>>
     if (widget.controller.getSelectedItems != null &&
         widget.controller.getSelectedItems.getListItems.length < 1 &&
         _oldController.getListItems.length > 0) {
-      List<T> oldItemList = List();
+      List<T> oldItemList = [];
       _oldController.getSelectedItems.getListItems.forEach(
         (element) => oldItemList.add(element.item),
       );

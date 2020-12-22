@@ -402,7 +402,7 @@ class _EasySearchState<T> extends State<EasySearch<T>> {
   }
 
   List<Widget> buildTextItem({BuildContext context, SearchItem searchItem}) {
-    List<Widget> listWidget = List();
+    List<Widget> listWidget = [];
     for (var element in searchItem.getSelectedItems.getListItems) {
       listWidget.add(
         InkWell(
